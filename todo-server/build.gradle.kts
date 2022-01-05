@@ -1,41 +1,37 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val ktor_version: String by project
-val kotlin_version: String by project
-val logback_version: String by project
 
 plugins {
-    application
-    kotlin("jvm") version "1.5.20"
+    kotlin("jvm") version Dependencies.Versions.kotlin
+    kotlin("plugin.serialization") version Dependencies.Versions.kotlin
 }
 
 group = "io.supersimple.todo"
 version = "0.0.1"
 
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+
+    tasks.withType<KotlinCompile> {
+
+        kotlinOptions {
+            jvmTarget = "11"
+
+            // opt into experimental APIs
+            freeCompilerArgs.plus("-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi")
+            freeCompilerArgs.plus("-Xopt-in=io.ktor.locations.KtorExperimentalLocationsAPI")
+        }
+    }
 }
 
-dependencies {
-    testImplementation(kotlin("test"))
-}
+subprojects {
+    apply(plugin = "java")
+    apply(plugin = "org.jetbrains.kotlin.jvm")
 
-tasks.test {
-    useJUnitPlatform()
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
-}
-
-application {
-    mainClass.set("io.supersimple.ApplicationKt")
-}
-
-dependencies {
-    implementation("io.ktor:ktor-server-core:$ktor_version")
-    implementation("io.ktor:ktor-server-netty:$ktor_version")
-    implementation("ch.qos.logback:logback-classic:$logback_version")
-    testImplementation("io.ktor:ktor-server-tests:$ktor_version")
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    dependencies {
+        val implementation by configurations
+        implementation(kotlin("stdlib-jdk8"))
+    }
 }

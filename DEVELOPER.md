@@ -10,5 +10,26 @@ docker run --platform linux/x86_64 \
   -d [-p 6606:3306] \
   -e MYSQL_ROOT_PASSWORD=secret \
   -e MYSQL_DATABASE=todos \
+  [--volume volume-name] \
   mysql:5.7
+```
+
+## Docker compose
+
+While developing you can also rebuild the docker image(s) with compose
+
+```bash
+docker compose build [--no-cache]
+```
+
+And run the distribution version with
+
+```bash
+docker compose up -d
+```
+
+Shut it down
+
+```bash
+docker compose down
 ```
