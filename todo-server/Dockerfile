@@ -5,6 +5,6 @@ RUN ./gradlew installDist
 
 FROM openjdk:11
 RUN mkdir app
-COPY --from=build /build/install/todo-server /app
+COPY --from=build server-app/build/install/server-app /app
 WORKDIR /app
-CMD ["./bin/todo-server"]
+CMD ["./bin/server-app"]

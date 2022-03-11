@@ -11,7 +11,10 @@ dependencies {
     implementation(project(":common"))
     implementation(project(":todo-service"))
     implementation(project(":persistent-storage"))
+    implementation(project(":persistent-storage-mysql"))
+    implementation(project(":common-ktor"))
+    implementation(project(":dev-auth-service"))
+    implementation(project(":mysql-todo-service"))
     implementation(Dependencies.Logging.logback)
-    implementation(Dependencies.DI.kodein)
     implementation(Dependencies.Persistence.exposed)
 }

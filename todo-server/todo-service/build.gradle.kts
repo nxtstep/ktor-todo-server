@@ -7,6 +7,5 @@ dependencies {
     implementation(project(":common"))
     implementation(project(":common-ktor"))
     implementation(project(":persistent-storage"))
-    implementation(Dependencies.DI.kodein)
-    implementation(Dependencies.Persistence.exposed)
+    implementation(project(":auth-service"))
 }

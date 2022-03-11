@@ -10,7 +10,7 @@ docker run --platform linux/x86_64 \
   -d [-p 6606:3306] \
   -e MYSQL_ROOT_PASSWORD=secret \
   -e MYSQL_DATABASE=todos \
-  [--volume volume-name] \
+  [--volume volume-name:/var/lib/mysql] \
   mysql:5.7
 ```
 

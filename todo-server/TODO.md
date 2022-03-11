@@ -3,7 +3,7 @@
 
 # Ideas
 
-- Remove Kodein
+- ~~Remove Kodein~~
 - Tests and mocking
 - Text search
 - micro services inside one docker compose (routing/transparency)

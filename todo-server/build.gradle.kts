@@ -17,7 +17,7 @@ allprojects {
     tasks.withType<KotlinCompile> {
 
         kotlinOptions {
-            jvmTarget = "11"
+            jvmTarget = JavaVersion.VERSION_11.majorVersion
 
             // opt into experimental APIs
             freeCompilerArgs.plus("-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi")

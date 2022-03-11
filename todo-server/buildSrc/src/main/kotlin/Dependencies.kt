@@ -4,7 +4,6 @@ object Dependencies {
         const val kotlinCoroutines = "1.5.2"
         const val ktor = "1.6.7"
         const val logback = "1.2.10"
-        const val kodein = "7.9.0"
         const val exposed = "0.17.14"
         const val mysql = "8.0.25"
         const val hikari = "5.0.0"
@@ -35,9 +34,6 @@ object Dependencies {
         const val exposed = "org.jetbrains.exposed:exposed:${Versions.exposed}"
     }
 
-    object DI {
-        const val kodein = "org.kodein.di:kodein-di-framework-ktor-server-controller-jvm:${Versions.kodein}"
-    }
 
     object Test {
         const val ktorServer = "io.ktor:ktor-server-tests:${Versions.ktor}"
