@@ -11,8 +11,8 @@ import io.supersimple.common.api.error.AuthenticationException
 import io.supersimple.common.api.error.MalformedRequestBodyException
 import io.supersimple.common.extension.authenticatedPost
 import io.supersimple.common.serialization.safeReceiveOrNull
-import io.supersimple.todo.features.AddNoteDTO
 import io.supersimple.todo.features.AddNoteUseCase
+import io.supersimple.todo.route.dto.AddNoteDTO
 
 const val ADD_NOTE = "/notes"
 

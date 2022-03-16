@@ -31,10 +31,10 @@ class NotesDatabaseRepository(private val database: NotesDatabase) : NotesReposi
         NotesEntity.select { ownerId eq userId.value }
             .orderBy(sortOrder)
             .map { row ->
-                row.toNote {
-                    TagEntity.select { TagEntity.note eq row[id] }.map { tagResult ->
+                row.toNote { noteUuid ->
+                    TagEntity.select { TagEntity.note eq noteUuid }.map { tagResult ->
                         tagResult[TagEntity.tag]
-                    }
+                    }.toSet()
                 }
             }
     }
@@ -91,7 +91,7 @@ private fun Note.toEntity(): NotesEntity.(InsertStatement<Number>) -> Unit = {
 }
 
 
-private fun ResultRow.toNote(tagsFetcher: (UUID) -> List<NoteTag>): Note = let { row ->
+private fun ResultRow.toNote(tagsFetcher: (UUID) -> Set<NoteTag>): Note = let { row ->
     Note(
         id = NoteID(row[id]),
         owner = UserID(row[ownerId]),

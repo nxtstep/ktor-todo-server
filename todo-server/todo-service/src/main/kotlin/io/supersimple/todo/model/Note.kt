@@ -24,7 +24,7 @@ data class Note(
     val body: String?,
     val public: Boolean = false,
     val sortOrder: Int,
-    val tags: List<NoteTag>,
+    val tags: Set<NoteTag>,
     @kotlinx.serialization.Serializable(LocalDateTimeSerializer::class)
     val created: LocalDateTime = LocalDateTime.now(),
     @kotlinx.serialization.Serializable(LocalDateTimeSerializer::class)
