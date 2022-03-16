@@ -8,9 +8,10 @@ import io.ktor.util.pipeline.PipelineContext
 
 public inline fun <reified T : Any> Route.authenticatedPost(
     configurations: String?,
+    optional: Boolean = false,
     noinline body: suspend PipelineContext<Unit, ApplicationCall>.(T) -> Unit
 ): Route =
-    authenticate(configurations) {
+    authenticate(configurations, optional = optional) {
         post(body)
     }
 
