@@ -20,9 +20,11 @@ fun Route.listNotesRoute(
 ) {
     authenticatedGet<NotesRoute>(optional = true) { notesRoute ->
 
-        val notes = when (authenticatedUser?.name) {
-            notesRoute.username -> listPrivateNotes(authenticatedUser!!)
-            else -> listPublicNotes(notesRoute.username)
+        val notes = authenticatedUser?.let { user ->
+            when (user.name) {
+                notesRoute.username -> listPrivateNotes(user)
+                else -> listPublicNotes(notesRoute.username)
+            }
         } ?: throw NotFoundException("Notes not found for ${notesRoute.username}")
 
         call.respond(notes)

@@ -17,7 +17,9 @@ object AddNoteRoute
 
 fun Route.addNoteRoute(addNote: AddNoteUseCase) {
     authenticatedPost<AddNoteRoute> {
-        val note = call.safeReceiveOrNull<AddNoteDTO>() ?: throw MalformedRequestBodyException()
-        call.respond(addNote(authenticatedUser!!, note))
+        with (call) {
+            val note = safeReceiveOrNull<AddNoteDTO>() ?: throw MalformedRequestBodyException()
+            respond(addNote(authenticatedUser!!, note))
+        }
     }
 }
