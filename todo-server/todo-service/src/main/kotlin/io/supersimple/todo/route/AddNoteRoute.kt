@@ -16,10 +16,10 @@ const val ADD_NOTE = "/notes"
 object AddNoteRoute
 
 fun Route.addNoteRoute(addNote: AddNoteUseCase) {
-    authenticatedPost<AddNoteRoute> {
+    authenticatedPost<AddNoteRoute> { _, user ->
         with (call) {
             val note = safeReceiveOrNull<AddNoteDTO>() ?: throw MalformedRequestBodyException()
-            respond(addNote(authenticatedUser!!, note))
+            respond(addNote(user, note))
         }
     }
 }

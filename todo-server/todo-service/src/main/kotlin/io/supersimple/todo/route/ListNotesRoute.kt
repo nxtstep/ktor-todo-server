@@ -18,13 +18,11 @@ fun Route.listNotesRoute(
     listPublicNotes: ListPublicNotesUseCase,
     listPrivateNotes: ListPrivateNotesUseCase,
 ) {
-    authenticatedGet<NotesRoute>(optional = true) { notesRoute ->
+    optionalAuthenticatedGet<NotesRoute> { notesRoute, user ->
 
-        val notes = authenticatedUser?.let { user ->
-            when (user.name) {
-                notesRoute.username -> listPrivateNotes(user)
-                else -> listPublicNotes(notesRoute.username)
-            }
+        val notes = when (user?.name) {
+            notesRoute.username -> listPrivateNotes(user)
+            else -> listPublicNotes(notesRoute.username) // User is either anonymous, or is authenticated but looking at someone else's notes
         } ?: throw NotFoundException("Notes not found for ${notesRoute.username}")
 
         call.respond(notes)
