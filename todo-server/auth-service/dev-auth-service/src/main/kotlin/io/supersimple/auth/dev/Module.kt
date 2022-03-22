@@ -6,7 +6,7 @@ import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.auth.Authentication
 import io.ktor.auth.jwt.jwt
-import io.supersimple.auth.attribute.AuthenticationKey
+import io.supersimple.auth.attribute.DefaultAuthProvider
 import io.supersimple.auth.attribute.UserRepositoryKey
 import io.supersimple.auth.dev.feature.DevAuthenticator
 import io.supersimple.auth.dev.repository.InMemoryUserRepository
@@ -23,9 +23,8 @@ fun Application.module() {
     val userRepository = InMemoryUserRepository()
     val authenticator = DevAuthenticator(userRepository)
     attributes.put(UserRepositoryKey, userRepository)
-    attributes.put(AuthenticationKey, "dev-jwt-auth")
     install(Authentication) {
-        jwt(attributes[AuthenticationKey]) {
+        jwt(DefaultAuthProvider) {
             with(config) {
                 realm = myRealm
                 verifier(
